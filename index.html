@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <div class="instagram"></div>
 
+    <script src="jquery.js"></script>
+    <script src="instagram.min.js"></script>
+    <script>
+    jQuery(function($) {
+      $('.instagram').on('willLoadInstagram', function(event, options) {
+        console.log(options);
+      });
+      $('.instagram').on('didLoadInstagram', function(event, response) {
+        console.log(response.data);
+        $('.instagram').html('<img src="' + response.data[0].images.standard_resolution.url + '">');
+      });
+      $('.instagram').instagram({
+        hash: 'happy',
+        clientId: '5706aa1ac7e84d609a8fd426259749be'
+      });
+    });
+    </script>
+  </body>
+</html>
