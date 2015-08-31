@@ -1,25 +1,90 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
+    <style>
+      html, body, #container {
+        height: 100%;
+        width: 100%;
+      }
+      .instagram{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width:640px;
+        height:640px;
+        margin-left: -320px;
+        margin-top: -320px;
+        /*transform: translate(-50%,-50%);*/
+      }
+      .instagram .image {
+        position: absolute;
+        /*-webkit-transition: all 1s ease-in-out;
+        -moz-transition: all 1s ease-in-out;
+        -o-transition: all 1s ease-in-out;
+        transition: all 1s ease-in-out;*/
+        width: 640px;
+        height: 640px;
+        left:-640px;
+      }
+    </style>
   </head>
   <body>
-    <div class="instagram"></div>
+    <div id="container">
+      <div class="instagram" style="overflow: hidden;"></div>
+    </div>
+    <div class="test"></div>
 
     <script src="jquery.js"></script>
     <script src="instagram.min.js"></script>
     <script>
+    var current = 0;
+    /*var data = [{id: 1, images: {standard_resolution: {url:'pics/1.jpg'}}},
+      {id: 2, images: {standard_resolution: {url:'pics/2.jpg'}}},
+      {id: 3, images: {standard_resolution: {url:'pics/3.gif'}}},
+      {id: 5, images: {standard_resolution: {url:'pics/5.jpg'}}},
+      {id: 6, images: {standard_resolution: {url:'pics/6.jpg'}}},
+      {id: 7, images: {standard_resolution: {url:'pics/7.jpg'}}},
+      {id: 8, images: {standard_resolution: {url:'pics/8.jpg'}}},
+      {id: 9, images: {standard_resolution: {url:'pics/9.jpg'}}},
+    ];*/
+    /*$(document).ready(setup);
+    function setup() {
+      console.log("Starting Setup");
+      for(var i = 0; i < data.length; i++)
+        {
+          $('.instagram').append('<img id ="' + data[i].id + '" class="image" src="' + data[i].images.standard_resolution.url + '">');
+        }
+        setInterval(slideshow, 3000);
+    };*/
+        
+    function slideshow() {
+      current = (current + 1) % data.length;
+      //Show Element
+      console.log((current + 1) % data.length + " --> " + current);
+      $('#' + data[(current + 1) % data.length].id).animate({left: 0}, function() {
+        //Hide Element
+        $('#'   + data[current].id).animate({left:-640});
+      });
+    };
     jQuery(function($) {
       $('.instagram').on('willLoadInstagram', function(event, options) {
         console.log(options);
       });
       $('.instagram').on('didLoadInstagram', function(event, response) {
         console.log(response.data);
-        $('.instagram').html('<img src="' + response.data[0].images.standard_resolution.url + '">');
+        data = response.data;
+        for(var i = 0; i < data.length; i++)
+        {
+          //This puts all the photos in the place that they are supposed to be.
+          $('.instagram').append('<img id ="' + data[i].id + '" class="image" src="' + data[i].images.standard_resolution.url + '">');
+          //this is to see what photos are actually queried from the API.
+          $('.test').append('<img id ="' + data[i].id + '" style="height: 150px; width: auto;" class="image" src="' + data[i].images.standard_resolution.url + '">');
+        }
+        setInterval(slideshow, 3000);
       });
       $('.instagram').instagram({
-        hash: 'happy',
-        clientId: '5706aa1ac7e84d609a8fd426259749be'
+        hash: 'gaabandtour2014',
+        clientId: '467ede5a6b9b48ae8e03f4e2582aeeb3'
       });
     });
     </script>
