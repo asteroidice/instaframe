@@ -38,24 +38,6 @@
     <script src="instagram.min.js"></script>
     <script>
     var current = 0;
-    /*var data = [{id: 1, images: {standard_resolution: {url:'pics/1.jpg'}}},
-      {id: 2, images: {standard_resolution: {url:'pics/2.jpg'}}},
-      {id: 3, images: {standard_resolution: {url:'pics/3.gif'}}},
-      {id: 5, images: {standard_resolution: {url:'pics/5.jpg'}}},
-      {id: 6, images: {standard_resolution: {url:'pics/6.jpg'}}},
-      {id: 7, images: {standard_resolution: {url:'pics/7.jpg'}}},
-      {id: 8, images: {standard_resolution: {url:'pics/8.jpg'}}},
-      {id: 9, images: {standard_resolution: {url:'pics/9.jpg'}}},
-    ];*/
-    /*$(document).ready(setup);
-    function setup() {
-      console.log("Starting Setup");
-      for(var i = 0; i < data.length; i++)
-        {
-          $('.instagram').append('<img id ="' + data[i].id + '" class="image" src="' + data[i].images.standard_resolution.url + '">');
-        }
-        setInterval(slideshow, 3000);
-    };*/
         
     function slideshow() {
       current = (current + 1) % data.length;
@@ -82,10 +64,14 @@
         }
         setInterval(slideshow, 3000);
       });
-      $('.instagram').instagram({
-        hash: 'gaabandtour2014',
-        clientId: '467ede5a6b9b48ae8e03f4e2582aeeb3'
-      });
+      setInterval(function() {
+        console.log("Fetching Content");
+        $('.instagram').instagram({
+          hash: 'arduino',
+          clientId: '467ede5a6b9b48ae8e03f4e2582aeeb3',
+          count: 20
+        });
+      }, 10000)
     });
     </script>
   </body>
