@@ -38,11 +38,10 @@
     <script src="instagram.min.js"></script>
     <script>
     var current = 0;
-        
     function slideshow() {
       current = (current + 1) % data.length;
       //Show Element
-      console.log((current + 1) % data.length + " --> " + current);
+      console.log(current  + " --> " + (current + 1) % data.length);
       $('#' + data[(current + 1) % data.length].id).animate({left: 0}, function() {
         //Hide Element
         $('#'   + data[current].id).animate({left:-640});
@@ -64,14 +63,11 @@
         }
         setInterval(slideshow, 3000);
       });
-      setInterval(function() {
-        console.log("Fetching Content");
-        $('.instagram').instagram({
-          hash: 'arduino',
-          clientId: '467ede5a6b9b48ae8e03f4e2582aeeb3',
-          count: 20
-        });
-      }, 10000)
+      $('.instagram').instagram({
+        hash: 'arduino',
+        clientId: '467ede5a6b9b48ae8e03f4e2582aeeb3',
+        count: 20
+      });
     });
     </script>
   </body>
